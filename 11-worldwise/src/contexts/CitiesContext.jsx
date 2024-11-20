@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer, useCallback } from "react";
 
 const CitiesContext = createContext();
 
@@ -61,24 +61,27 @@ function CitiesProvider({ children }) {
     return () => controller.abort();
   }, []);
 
-  async function getCity(id) {
-    if (id == currentCity.id) return;
-    const controller = new AbortController();
-    dispatch({ type: "loading" });
-    try {
-      const res = await fetch(`http://localhost:5000/cities/${id}`, {
-        signal: controller.signal,
-      });
-      const data = await res.json();
-      dispatch({ type: "city/loaded", payload: data });
-    } catch (err) {
-      if (err.name !== "AbortError") {
-        dispatch({ type: "rejected", payload: "There was an error loading the data" });
-        alert("There was an error loading the data");
+  const getCity = useCallback(
+    async function getCity(id) {
+      if (id == currentCity.id) return;
+      const controller = new AbortController();
+      dispatch({ type: "loading" });
+      try {
+        const res = await fetch(`http://localhost:5000/cities/${id}`, {
+          signal: controller.signal,
+        });
+        const data = await res.json();
+        dispatch({ type: "city/loaded", payload: data });
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          dispatch({ type: "rejected", payload: "There was an error loading the data" });
+          alert("There was an error loading the data");
+        }
+        console.log(err);
       }
-      console.log(err);
-    }
-  }
+    },
+    [currentCity.id]
+  );
 
   async function createCity(city) {
     const controller = new AbortController();

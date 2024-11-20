@@ -22,7 +22,7 @@ export default function Login() {
     if (isAuthenticated) {
       navigate("/app", { replace: true });
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
 
   return (
     <main className={styles.login}>

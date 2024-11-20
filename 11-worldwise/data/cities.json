@@ -23,6 +23,18 @@
         "lat": "50.857704315600714",
         "lng": "4.331895072221777"
       }
+    },
+    {
+      "id": "1e52",
+      "cityName": "London",
+      "country": "United Kingdom of Great Britain and Northern Ireland (the)",
+      "emoji": "🇬🇧",
+      "date": "2024-11-20T06:41:52.633Z",
+      "notes": "Wonderful architecture",
+      "position": {
+        "lat": "51.515579783755925",
+        "lng": "-0.14282226562500003"
+      }
     }
   ]
 }
