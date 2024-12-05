@@ -1,7 +1,12 @@
-import { HiOutlinePencil, HiOutlineTrash, HiSquare2Stack } from "react-icons/hi2";
+import {
+  HiEllipsisVertical,
+  HiOutlinePencil,
+  HiOutlineTrash,
+  HiSquare2Stack,
+} from "react-icons/hi2";
 import styled from "styled-components";
-import Button from "../../ui/Button";
 import ConfirmDelete from "../../ui/ConfirmDelete";
+import Menus from "../../ui/Menus";
 import Modal from "../../ui/Modal";
 import Table from "../../ui/Table";
 import { formatCurrency } from "../../utils/helpers";
@@ -71,26 +76,26 @@ function CabinRow({ cabin }) {
         <Price>{formatCurrency(regularPrice)}</Price>
         <Discount>{discount ? formatCurrency(discount) : <span>&mdash;</span>}</Discount>
         <Buttons>
-          <Button onClick={handleDuplicate} disabled={isCreating}>
-            <HiSquare2Stack />
-          </Button>
           <Modal>
-            <Modal.Open opens="edit-cabin">
-              <Button>
-                <HiOutlinePencil />
-              </Button>
-            </Modal.Open>
+            <Menus.Menu>
+              <Menus.Toggle id={cabin}>
+                <HiEllipsisVertical />
+              </Menus.Toggle>
+              <Menus.List id={cabin}>
+                <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate} />
+                <Modal.Open opens="edit-cabin">
+                  <Menus.Button icon={<HiOutlinePencil />} />
+                </Modal.Open>
+                <Modal.Open opens="confirm-delete">
+                  <Menus.Button icon={<HiOutlineTrash />} />
+                </Modal.Open>
+              </Menus.List>
+            </Menus.Menu>
+
             <Modal.Window name="edit-cabin">
               <CreateCabinForm cabinToEdit={cabin} />
             </Modal.Window>
-          </Modal>
 
-          <Modal>
-            <Modal.Open opens="confirm-delete">
-              <Button>
-                <HiOutlineTrash />
-              </Button>
-            </Modal.Open>
             <Modal.Window name="confirm-delete">
               <ConfirmDelete
                 resourceName="cabin"
