@@ -78,16 +78,18 @@ function CabinRow({ cabin }) {
         <Buttons>
           <Modal>
             <Menus.Menu>
-              <Menus.Toggle id={cabin}>
+              <Menus.Toggle id={cabinId}>
                 <HiEllipsisVertical />
               </Menus.Toggle>
-              <Menus.List id={cabin}>
-                <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate} />
+              <Menus.List id={cabinId}>
+                <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate}>
+                  Duplicate
+                </Menus.Button>
                 <Modal.Open opens="edit-cabin">
-                  <Menus.Button icon={<HiOutlinePencil />} />
+                  <Menus.Button icon={<HiOutlinePencil />}>Edit</Menus.Button>
                 </Modal.Open>
                 <Modal.Open opens="confirm-delete">
-                  <Menus.Button icon={<HiOutlineTrash />} />
+                  <Menus.Button icon={<HiOutlineTrash />}>Delete</Menus.Button>
                 </Modal.Open>
               </Menus.List>
             </Menus.Menu>
