@@ -74,7 +74,7 @@ function BookingDetail() {
             disabled={isDeleting}
             onConfirm={() => {
               deleteBooking(id, {
-                onSuccess: () => moveBack(),
+                onSuccess: moveBack,
               });
             }}
           />
