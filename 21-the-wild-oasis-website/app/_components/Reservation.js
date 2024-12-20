@@ -6,7 +6,7 @@ import ReservationForm from "./ReservationForm";
 
 async function Reservation({ cabin }) {
   const { id, name, maxCapacity } = cabin;
-  const bookings = await getBookedDatesByCabinId(id);
+  const bookedDates = await getBookedDatesByCabinId(id);
   const settings = await getSettings();
   const session = await auth();
   return (
@@ -15,12 +15,8 @@ async function Reservation({ cabin }) {
         Reserve {name} today. Pay on arrival.
       </h2>
       <div className="grid grid-cols-2 border border-primary-800 min-h-[400px]">
-        <DateSelector bookings={bookings} settings={settings} cabin={cabin} />
-        {session?.user ? (
-          <ReservationForm maxCapacity={maxCapacity} user={session.user} />
-        ) : (
-          <LoginMessage />
-        )}
+        <DateSelector bookedDates={bookedDates} settings={settings} cabin={cabin} />
+        {session?.user ? <ReservationForm cabin={cabin} user={session.user} /> : <LoginMessage />}
       </div>
     </div>
   );
